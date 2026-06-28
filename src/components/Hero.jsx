@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Hero({ total }) {
   return (
     <section
       className="w-full bg-cream-paper relative overflow-hidden"
@@ -59,10 +59,10 @@ export default function Hero() {
         {/* Stat pills */}
         <div className="flex items-center justify-center gap-3 flex-wrap">
           {[
-            '243 tools verified',
-            '19 categories',
+            `${total} tools verified`,
             'No credit card',
             'No affiliate links',
+            'No accounts required',
           ].map((stat) => (
             <span
               key={stat}

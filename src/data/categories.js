@@ -3,7 +3,6 @@ export const categories = [
   { label: 'AI Chatbots', slug: 'ai-chatbots' },
   { label: 'AI Image', slug: 'ai-image' },
   { label: 'AI Writing', slug: 'ai-writing' },
-  { label: 'AI Audio/Video', slug: 'ai-audio-video' },
   { label: 'Design Tools', slug: 'design-tools' },
   { label: 'Dev Tools', slug: 'dev-tools' },
   { label: 'Code Hosting/CI', slug: 'code-hosting-ci' },

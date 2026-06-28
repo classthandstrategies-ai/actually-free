@@ -1,4 +1,5 @@
-export default function Nav() {
+export default function Nav({ total, categories }) {
+  const catCount = categories ? categories.filter((c) => c.slug !== 'all').length : 0
   return (
     <div className="sticky top-0 z-50 px-6 pt-4 pb-2 bg-cream-paper">
       <nav
@@ -14,8 +15,8 @@ export default function Nav() {
           Actually Free
         </span>
         <div className="flex items-center gap-4">
-          <span className="font-figtree text-sm text-graphite-veil">
-            243 tools · 19 categories · 0 ads
+          <span className="font-figtree text-sm text-graphite-veil hidden sm:inline">
+            {total} tools · {catCount} categories · 0 ads
           </span>
           <a
             href="https://github.com/classthandstrategies-ai/actually-free"

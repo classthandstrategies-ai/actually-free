@@ -10,6 +10,8 @@ import HowToReadSection from './components/HowToReadSection'
 import MissionBand from './components/MissionBand'
 import Footer from './components/Footer'
 
+const TOTAL = tools.length
+
 function App() {
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('all')
@@ -36,43 +38,61 @@ function App() {
       result = [...result].sort((a, b) => (b.generosity || 0) - (a.generosity || 0))
     } else if (sort === 'alphabetical') {
       result = [...result].sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sort === 'category') {
+      result = [...result].sort((a, b) =>
+        a.category.localeCompare(b.category) || a.name.localeCompare(b.name)
+      )
     }
 
     return result
   }, [search, activeCategory, sort])
 
   const categoryCounts = useMemo(() => {
-    const counts = {}
+    const counts = { all: tools.length }
     categories.forEach((cat) => {
-      if (cat.slug === 'all') {
-        counts[cat.slug] = tools.length
-      } else {
+      if (cat.slug !== 'all') {
         counts[cat.slug] = tools.filter((t) => t.category === cat.slug).length
       }
     })
     return counts
   }, [])
 
+  const isFiltered = search.length > 0 || activeCategory !== 'all'
+
   return (
     <div style={{ minHeight: '100vh', background: '#ffffeb' }}>
-      <Nav />
-      <Hero />
+      <Nav total={TOTAL} categories={categories} />
+      <Hero total={TOTAL} />
 
       {/* Sticky controls */}
-      <div className="sticky z-40" style={{ top: '68px' }}>
+      <div className="sticky z-40" style={{ top: '64px' }}>
         <Controls
           search={search}
           onSearchChange={setSearch}
           sort={sort}
           onSortChange={setSort}
+          total={TOTAL}
+          resultCount={filtered.length}
+          isFiltered={isFiltered}
         />
       </div>
 
       {/* Main content */}
-      <main className="max-w-[1200px] mx-auto px-6" style={{ paddingTop: '32px', paddingBottom: '64px' }}>
+      <main className="max-w-[1200px] mx-auto px-6" style={{ paddingTop: '28px', paddingBottom: '64px' }}>
+        {/* Mobile: category selector above grid */}
+        <div className="md:hidden" style={{ marginBottom: '16px' }}>
+          <CategorySidebar
+            categories={categories}
+            active={activeCategory}
+            counts={categoryCounts}
+            onSelect={setActiveCategory}
+            mobileOnly
+          />
+        </div>
+
         <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
-          {/* Sidebar — handles its own mobile/desktop rendering */}
-          <div style={{ flexShrink: 0, position: 'sticky', top: '136px', alignSelf: 'flex-start' }}>
+          {/* Desktop sidebar — sticky */}
+          <div className="hidden md:block" style={{ flexShrink: 0, position: 'sticky', top: '132px', alignSelf: 'flex-start' }}>
             <CategorySidebar
               categories={categories}
               active={activeCategory}
@@ -82,7 +102,7 @@ function App() {
           </div>
 
           {/* Grid */}
-          <ToolGrid tools={filtered} />
+          <ToolGrid tools={filtered} total={TOTAL} isFiltered={isFiltered} />
         </div>
       </main>
 
