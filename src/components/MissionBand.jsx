@@ -1,6 +1,6 @@
 export default function MissionBand() {
   return (
-    <section className="w-full bg-[#034f46] text-white py-16 text-center">
+    <section className="w-full bg-deep-forest-teal text-white py-16 text-center">
       <h2 className="font-figtree font-semibold text-2xl text-white mb-4">
         One rule
       </h2>
