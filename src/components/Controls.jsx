@@ -18,7 +18,7 @@ export default function Controls({ search, onSearchChange, sort, onSortChange, t
             aria-label="Search tools"
             className="search-input font-figtree text-midnight-ink placeholder-graphite-veil bg-white w-full"
             style={{
-              padding: '9px 36px 9px 13px',
+              padding: '9px 36px 9px 12px',
               fontSize: '14px',
               border: '1px solid #e4e4d0',
               borderRadius: '8px',

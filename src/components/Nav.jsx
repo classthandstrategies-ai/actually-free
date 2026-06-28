@@ -9,7 +9,7 @@ export default function Nav({ total, categories }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '10px 16px',
+            padding: '10px 12px',
             background: '#ffffff',
             border: '1px solid #e4e4d0',
             borderRadius: '14px',

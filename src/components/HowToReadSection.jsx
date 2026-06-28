@@ -4,7 +4,7 @@ export default function HowToReadSection() {
   return (
     <section style={{ background: '#1a1a1a', padding: '80px 0' }}>
       <div className="max-w-[1200px] mx-auto px-6">
-        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <h2
             className="font-eb-garamond font-normal"
             style={{ fontSize: '48px', lineHeight: 1.05, color: '#ffffff', marginBottom: '20px', letterSpacing: '-0.02em' }}
@@ -52,7 +52,7 @@ export default function HowToReadSection() {
 
           {/* Monogram arc */}
           <p className="font-figtree" style={{ fontSize: '14px', color: '#5f5f59', marginBottom: '24px' }}>
-            243 tools, all verified — just a few of them:
+            240 tools, all verified — just a few of them:
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
             {SAMPLE_MONOGRAMS.map((letter, i) => (
