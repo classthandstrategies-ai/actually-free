@@ -14,7 +14,7 @@
 
 /**
  * Directory of genuinely free tools (no credit card, free forever).
- * Data last reviewed: June 2026 (19/20 categories web-verified; AI Audio/Video category unavailable due to connection timeout).
+ * Data last reviewed: June 2026. 241 tools across 19 categories. CyberGhost and Pixlr removed — trial-only, no genuine free tier.
  * Free tiers change — verify critical tools before relying on this directory for critical workflows.
  * @type {Tool[]}
  */
@@ -230,18 +230,6 @@ export const tools = [
     "noCardRequired": true,
     "openSource": false,
     "paidTierHint": "Pro $5.99/mo"
-  },
-  {
-    "id": "pixlr",
-    "name": "Pixlr",
-    "category": "ai-image",
-    "description": "Free AI image generator with 7-day free trial providing 250 credits (up to 75 images) and no watermarks on generated images.",
-    "limitation": "7-day trial limitation requires tracking for reset; limited feature access without paid subscription; ads on free tier.",
-    "url": "https://pixlr.com/image-generator/",
-    "generosity": 3,
-    "noCardRequired": true,
-    "openSource": false,
-    "paidTierHint": "Premium $7.99/mo"
   },
   {
     "id": "openart-ai",
@@ -776,18 +764,6 @@ export const tools = [
     "noCardRequired": true,
     "openSource": false,
     "paidTierHint": "Team $4/user/mo"
-  },
-  {
-    "id": "gitlab-ci",
-    "name": "GitLab CI/CD",
-    "category": "code-hosting-ci",
-    "description": "Integrated CI/CD platform within GitLab with 400 compute minutes/month and unlimited self-hosted runners on all plans.",
-    "limitation": "Free tier includes 400 shared runner minutes per month; requires $1 verification (no charge) to prevent abuse.",
-    "url": "https://about.gitlab.com/pricing/",
-    "generosity": 3,
-    "noCardRequired": false,
-    "openSource": true,
-    "paidTierHint": "Premium $29/user/mo"
   },
   {
     "id": "gitea",
@@ -1384,18 +1360,6 @@ export const tools = [
     "noCardRequired": true,
     "openSource": true,
     "paidTierHint": "None (fully free)"
-  },
-  {
-    "id": "cyberghost",
-    "name": "CyberGhost",
-    "category": "vpn",
-    "description": "VPN offering 24-hour free trial for desktop with no credit card required; longer trials on mobile.",
-    "limitation": "Not free forever—only 24-hour trial (desktop) or 3-7 days (mobile); trial access only.",
-    "url": "https://www.cyberghostvpn.com/vpn-free-trial",
-    "generosity": 2,
-    "noCardRequired": true,
-    "openSource": false,
-    "paidTierHint": "Basic $1.75/mo"
   },
   {
     "id": "bitdefender-vpn",
@@ -2218,7 +2182,7 @@ export const tools = [
     "name": "Simple Analytics",
     "category": "analytics",
     "description": "Privacy-focused web analytics with unlimited pageviews, GDPR-compliant, and no data sampling.",
-    "limitation": "Free plan limited to 30 days of data history and access during 14-day trial; after trial converts to free plan with 30-day retention limit.",
+    "limitation": "Free plan is free forever with 30-day data retention; starts with a 14-day full-feature trial then auto-converts — no credit card needed.",
     "url": "https://www.simpleanalytics.com/pricing",
     "generosity": 4,
     "noCardRequired": true,
