@@ -10,7 +10,7 @@ export default function Controls({ search, onSearchChange, sort, onSortChange })
           placeholder="Search 243 tools..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="font-figtree text-midnight-ink placeholder-graphite-veil bg-white"
+          className="search-input font-figtree text-midnight-ink placeholder-graphite-veil bg-white"
           style={{
             flex: 1,
             maxWidth: '400px',
@@ -20,8 +20,6 @@ export default function Controls({ search, onSearchChange, sort, onSortChange })
             borderRadius: '8px',
             outline: 'none',
           }}
-          onFocus={(e) => (e.target.style.borderColor = '#1a1a1a')}
-          onBlur={(e) => (e.target.style.borderColor = '#e4e4d0')}
         />
 
         <select

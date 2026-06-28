@@ -1,63 +1,81 @@
-const MONOGRAM_COLORS = [
-  '#f0d7ff', '#e4e4d0', '#ffa94620', '#034f4615',
-  '#1a1a1a10', '#f0d7ff', '#e4e4d0', '#ffa94620',
+import { useState } from 'react'
+
+const MONOGRAM_BG = [
+  '#f0d7ff', '#e4f4f0', '#fff3e0', '#e8f5e9',
+  '#fce4ec', '#e3f2fd', '#f3e5f5', '#e0f7fa',
 ]
 
-export default function ToolCard({ tool }) {
+function ToolIcon({ tool }) {
+  const [loaded, setLoaded] = useState(false)
+  const [error, setError] = useState(false)
   const initial = tool.name.charAt(0).toUpperCase()
-  const colorIndex = tool.name.charCodeAt(0) % MONOGRAM_COLORS.length
+  const bgColor = MONOGRAM_BG[tool.name.charCodeAt(0) % MONOGRAM_BG.length]
+
+  let domain = ''
+  try { domain = new URL(tool.url).hostname } catch { /* invalid url */ }
 
   return (
-    <article
-      className="bg-white flex flex-col"
+    <div
       style={{
-        border: '1px solid #e4e4d0',
-        borderRadius: '24px',
-        padding: '24px',
+        width: '36px', height: '36px', borderRadius: '10px',
+        background: bgColor, border: '1px solid #e4e4d0',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        flexShrink: 0, overflow: 'hidden', position: 'relative',
       }}
     >
-      {/* Header: monogram + name */}
-      <div className="flex items-center gap-3" style={{ marginBottom: '12px' }}>
-        <div
-          className="flex items-center justify-center flex-shrink-0 font-figtree font-semibold text-midnight-ink"
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            background: MONOGRAM_COLORS[colorIndex],
-            fontSize: '14px',
-            border: '1px solid #e4e4d0',
-          }}
+      {/* Favicon */}
+      {domain && !error && (
+        <img
+          src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+          alt=""
+          width={20}
+          height={20}
+          className={`favicon-img${loaded ? ' loaded' : ''}`}
+          style={{ position: 'absolute', objectFit: 'contain' }}
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+        />
+      )}
+      {/* Monogram fallback — visible until favicon loads */}
+      {(!loaded || error) && (
+        <span
+          className="font-figtree font-semibold"
+          style={{ fontSize: '14px', color: '#1a1a1a', userSelect: 'none' }}
         >
           {initial}
-        </div>
-        <h3 className="font-figtree font-semibold text-midnight-ink" style={{ fontSize: '15px', lineHeight: 1.3 }}>
+        </span>
+      )}
+    </div>
+  )
+}
+
+export default function ToolCard({ tool }) {
+  return (
+    <article
+      className="tool-card bg-white flex flex-col"
+      style={{ border: '1px solid #e4e4d0', borderRadius: '20px', padding: '20px' }}
+    >
+      {/* Header: icon + name */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+        <ToolIcon tool={tool} />
+        <h3 className="font-figtree font-semibold text-midnight-ink" style={{ fontSize: '14px', lineHeight: 1.35 }}>
           {tool.name}
         </h3>
       </div>
 
       {/* Description */}
-      <p
-        className="font-figtree font-normal text-graphite-veil"
-        style={{ fontSize: '13px', lineHeight: 1.5, marginBottom: '14px' }}
-      >
+      <p className="font-figtree font-normal text-graphite-veil" style={{ fontSize: '13px', lineHeight: 1.55, marginBottom: '12px' }}>
         {tool.description}
       </p>
 
-      {/* Limitation — the differentiator */}
+      {/* Free tier limit — the differentiator */}
       <div
         style={{
-          background: '#fffef5',
-          border: '1px solid #e4e4d0',
-          borderRadius: '8px',
-          padding: '10px 12px',
-          marginBottom: '14px',
+          background: '#fffef5', border: '1px solid #e8e8cc',
+          borderRadius: '8px', padding: '9px 11px', marginBottom: '12px',
         }}
       >
-        <p
-          className="font-figtree font-medium text-midnight-ink"
-          style={{ fontSize: '12px', color: '#8a8a80', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.06em' }}
-        >
+        <p style={{ fontSize: '10px', color: '#8a8a80', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600 }}>
           Free tier limit
         </p>
         <p className="font-figtree font-semibold text-midnight-ink" style={{ fontSize: '13px', lineHeight: 1.45 }}>
@@ -67,70 +85,47 @@ export default function ToolCard({ tool }) {
 
       {/* Paid hint */}
       {tool.paidTierHint && (
-        <p className="font-figtree font-normal" style={{ fontSize: '12px', color: '#8a8a80', marginBottom: '14px' }}>
+        <p className="font-figtree font-normal" style={{ fontSize: '11px', color: '#8a8a80', marginBottom: '12px' }}>
           Paid: {tool.paidTierHint}
         </p>
       )}
 
-      {/* Spacer pushes badges + button to bottom */}
+      {/* Spacer */}
       <div style={{ flex: 1 }} />
 
-      {/* Badges */}
-      <div className="flex flex-wrap items-center gap-2" style={{ marginBottom: '14px' }}>
-        <span
-          className="font-figtree font-semibold"
+      {/* Badges + Visit row */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '4px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          <span
+            className="font-figtree font-semibold"
+            style={{ fontSize: '11px', padding: '4px 9px', borderRadius: '1000px', background: '#034f46', color: '#fff' }}
+          >
+            No card required
+          </span>
+          {tool.openSource && (
+            <span
+              className="font-figtree font-medium"
+              style={{ fontSize: '11px', padding: '4px 9px', borderRadius: '1000px', border: '1px solid #c4c4b4', color: '#5f5f59' }}
+            >
+              Open source
+            </span>
+          )}
+        </div>
+
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="visit-btn font-figtree font-semibold text-midnight-ink"
           style={{
-            fontSize: '11px',
-            padding: '4px 10px',
-            borderRadius: '1000px',
-            background: '#034f46',
-            color: '#ffffff',
+            fontSize: '12px', padding: '6px 12px', flexShrink: 0,
+            border: '1px solid #d0d0c0', borderRadius: '7px',
+            textDecoration: 'none', whiteSpace: 'nowrap', color: '#1a1a1a',
           }}
         >
-          No card required
-        </span>
-        {tool.openSource && (
-          <span
-            className="font-figtree font-medium"
-            style={{
-              fontSize: '11px',
-              padding: '4px 10px',
-              borderRadius: '1000px',
-              border: '1px solid #1a1a1a',
-              color: '#1a1a1a',
-            }}
-          >
-            Open source
-          </span>
-        )}
+          Visit →
+        </a>
       </div>
-
-      {/* Visit button */}
-      <a
-        href={tool.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-figtree font-semibold text-midnight-ink inline-block"
-        style={{
-          fontSize: '13px',
-          padding: '8px 16px',
-          border: '1px solid #1a1a1a',
-          borderRadius: '8px',
-          textDecoration: 'none',
-          textAlign: 'center',
-          transition: 'background 0.15s, color 0.15s',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#1a1a1a'
-          e.currentTarget.style.color = '#ffffff'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'transparent'
-          e.currentTarget.style.color = '#1a1a1a'
-        }}
-      >
-        Visit →
-      </a>
     </article>
   )
 }

@@ -39,6 +39,7 @@ export default function Hero() {
             lineHeight: 0.88,
             letterSpacing: '-0.05em',
             marginBottom: '28px',
+            animation: 'fadeSlideUp 0.6s ease both',
           }}
         >
           <span style={{ color: '#8a8a80' }}>Actually</span>{' '}
@@ -65,7 +66,7 @@ export default function Hero() {
           ].map((stat) => (
             <span
               key={stat}
-              className="font-figtree font-medium text-midnight-ink"
+              className="stat-pill font-figtree font-medium text-midnight-ink"
               style={{
                 fontSize: '13px',
                 padding: '6px 14px',
