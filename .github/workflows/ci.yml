@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        id: npm_ci
+        run: npm ci
+        continue-on-error: true
+
+      - name: Check npm ci status
+        if: steps.npm_ci.outcome == 'failure'
+        run: |
+          echo "❌ Failed to install dependencies"
+          echo "Error: npm ci failed"
+          exit 1
+
+      - name: Run lint
+        id: lint
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Check lint status
+        if: steps.lint.outcome == 'failure'
+        run: |
+          echo "❌ Linting failed"
+          echo "Error: npm run lint exited with non-zero status"
+          exit 1
+
+      - name: Run build
+        id: build
+        run: npm run build
+        continue-on-error: true
+
+      - name: Check build status
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "❌ Build failed"
+          echo "Error: npm run build exited with non-zero status"
+          exit 1
+
+      - name: Success
+        if: success()
+        run: |
+          echo "✅ All steps passed successfully"
+          echo "Dependencies installed"
+          echo "Linting completed"
+          echo "Build completed"
