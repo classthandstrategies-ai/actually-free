@@ -1,41 +1,32 @@
 export default function Nav() {
   return (
-    <nav
-      style={{
-        position: "sticky",
-        top: 0,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e4e4d0",
-        borderRadius: "14px",
-        padding: "12px 16px",
-        zIndex: 50,
-      }}
-    >
-      <div
+    <div className="sticky top-0 z-50 px-6 pt-4 pb-2 bg-cream-paper">
+      <nav
+        className="max-w-[1200px] mx-auto flex items-center justify-between px-5 py-3"
         style={{
-          fontFamily: "Figtree",
-          fontWeight: 600,
-          fontSize: "16px",
-          color: "#1a1a1a",
+          background: '#ffffff',
+          border: '1px solid #e4e4d0',
+          borderRadius: '14px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
         }}
       >
-        Actually Free
-      </div>
-      <a
-        href="https://github.com"
-        style={{
-          fontFamily: "Figtree",
-          fontWeight: 500,
-          fontSize: "14px",
-          color: "#1a1a1a",
-          textDecoration: "none",
-        }}
-      >
-        GitHub
-      </a>
-    </nav>
-  );
+        <span className="font-figtree font-semibold text-base text-midnight-ink tracking-tight">
+          Actually Free
+        </span>
+        <div className="flex items-center gap-4">
+          <span className="font-figtree text-sm text-graphite-veil">
+            243 tools · 19 categories · 0 ads
+          </span>
+          <a
+            href="https://github.com/classthandstrategies-ai/actually-free"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-figtree font-medium text-sm text-midnight-ink hover:text-graphite-veil transition-colors"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </nav>
+    </div>
+  )
 }

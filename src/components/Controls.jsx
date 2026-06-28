@@ -1,26 +1,41 @@
-export default function Controls({
-  search,
-  onSearchChange,
-  sort,
-  onSortChange,
-}) {
+export default function Controls({ search, onSearchChange, sort, onSortChange }) {
   return (
-    <div className="sticky top-0 z-10 bg-cream-paper px-[--spacing-24] py-[--spacing-24]">
-      <div className="flex items-center justify-between gap-6">
-        {/* Search Input */}
+    <div
+      className="bg-cream-paper"
+      style={{ borderBottom: '1px solid #e4e4d0', paddingTop: '12px', paddingBottom: '12px' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center gap-3">
         <input
           type="text"
-          placeholder="Search tools..."
+          placeholder="Search 243 tools..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full max-w-[400px] rounded-[--radius-lg] border border-graphite-veil bg-white px-[--spacing-12] py-[--spacing-12] font-figtree text-[16px] placeholder-graphite-veil focus:outline-none focus:ring-2 focus:ring-deep-forest-teal"
+          className="font-figtree text-midnight-ink placeholder-graphite-veil bg-white"
+          style={{
+            flex: 1,
+            maxWidth: '400px',
+            padding: '10px 14px',
+            fontSize: '14px',
+            border: '1px solid #e4e4d0',
+            borderRadius: '8px',
+            outline: 'none',
+          }}
+          onFocus={(e) => (e.target.style.borderColor = '#1a1a1a')}
+          onBlur={(e) => (e.target.style.borderColor = '#e4e4d0')}
         />
 
-        {/* Sort Select */}
         <select
           value={sort}
           onChange={(e) => onSortChange(e.target.value)}
-          className="rounded-[--radius-lg] border border-graphite-veil bg-white px-[--spacing-12] py-[--spacing-12] font-figtree text-[14px] font-medium text-midnight-ink focus:outline-none focus:ring-2 focus:ring-deep-forest-teal"
+          className="font-figtree font-medium text-midnight-ink bg-white"
+          style={{
+            padding: '10px 14px',
+            fontSize: '13px',
+            border: '1px solid #e4e4d0',
+            borderRadius: '8px',
+            outline: 'none',
+            cursor: 'pointer',
+          }}
         >
           <option value="generous">Most generous</option>
           <option value="alphabetical">A–Z</option>

@@ -54,26 +54,38 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-cream-paper">
+    <div style={{ minHeight: '100vh', background: '#ffffeb' }}>
       <Nav />
       <Hero />
-      <main className="max-w-[--page-max-width] mx-auto px-8">
+
+      {/* Sticky controls */}
+      <div className="sticky z-40" style={{ top: '68px' }}>
         <Controls
           search={search}
           onSearchChange={setSearch}
           sort={sort}
           onSortChange={setSort}
         />
-        <div className="flex gap-8">
-          <CategorySidebar
-            categories={categories}
-            active={activeCategory}
-            counts={categoryCounts}
-            onSelect={setActiveCategory}
-          />
+      </div>
+
+      {/* Main content */}
+      <main className="max-w-[1200px] mx-auto px-6" style={{ paddingTop: '32px', paddingBottom: '64px' }}>
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
+          {/* Sidebar — handles its own mobile/desktop rendering */}
+          <div style={{ flexShrink: 0, position: 'sticky', top: '136px', alignSelf: 'flex-start' }}>
+            <CategorySidebar
+              categories={categories}
+              active={activeCategory}
+              counts={categoryCounts}
+              onSelect={setActiveCategory}
+            />
+          </div>
+
+          {/* Grid */}
           <ToolGrid tools={filtered} />
         </div>
       </main>
+
       <HowToReadSection />
       <MissionBand />
       <Footer />

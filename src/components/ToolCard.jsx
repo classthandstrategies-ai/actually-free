@@ -1,54 +1,136 @@
+const MONOGRAM_COLORS = [
+  '#f0d7ff', '#e4e4d0', '#ffa94620', '#034f4615',
+  '#1a1a1a10', '#f0d7ff', '#e4e4d0', '#ffa94620',
+]
+
 export default function ToolCard({ tool }) {
-  const monogram = tool.name.charAt(0).toUpperCase()
+  const initial = tool.name.charAt(0).toUpperCase()
+  const colorIndex = tool.name.charCodeAt(0) % MONOGRAM_COLORS.length
 
   return (
-    <div className="rounded-[--radius-3xl] border border-stone-mist bg-white p-[--spacing-32]">
-      {/* Tool name + monogram */}
-      <div className="flex items-center gap-[--spacing-16] mb-[--spacing-16]">
-        <div className="w-10 h-10 rounded-full bg-lavender-whisper flex items-center justify-center flex-shrink-0">
-          <span className="font-figtree font-600 text-charcoal text-sm">{monogram}</span>
+    <article
+      className="bg-white flex flex-col"
+      style={{
+        border: '1px solid #e4e4d0',
+        borderRadius: '24px',
+        padding: '24px',
+      }}
+    >
+      {/* Header: monogram + name */}
+      <div className="flex items-center gap-3" style={{ marginBottom: '12px' }}>
+        <div
+          className="flex items-center justify-center flex-shrink-0 font-figtree font-semibold text-midnight-ink"
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '10px',
+            background: MONOGRAM_COLORS[colorIndex],
+            fontSize: '14px',
+            border: '1px solid #e4e4d0',
+          }}
+        >
+          {initial}
         </div>
-        <h3 className="font-figtree font-600 text-midnight-ink text-base leading-body">{tool.name}</h3>
+        <h3 className="font-figtree font-semibold text-midnight-ink" style={{ fontSize: '15px', lineHeight: 1.3 }}>
+          {tool.name}
+        </h3>
       </div>
 
-      {/* One-line description */}
-      <p className="font-figtree font-400 text-midnight-ink text-base leading-body mb-[--spacing-16]">
+      {/* Description */}
+      <p
+        className="font-figtree font-normal text-graphite-veil"
+        style={{ fontSize: '13px', lineHeight: 1.5, marginBottom: '14px' }}
+      >
         {tool.description}
       </p>
 
-      {/* Limitation prominently displayed */}
-      <p className="font-figtree font-600 text-midnight-ink text-base leading-body mb-[--spacing-16]">
-        {tool.limitation}
-      </p>
+      {/* Limitation — the differentiator */}
+      <div
+        style={{
+          background: '#fffef5',
+          border: '1px solid #e4e4d0',
+          borderRadius: '8px',
+          padding: '10px 12px',
+          marginBottom: '14px',
+        }}
+      >
+        <p
+          className="font-figtree font-medium text-midnight-ink"
+          style={{ fontSize: '12px', color: '#8a8a80', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.06em' }}
+        >
+          Free tier limit
+        </p>
+        <p className="font-figtree font-semibold text-midnight-ink" style={{ fontSize: '13px', lineHeight: 1.45 }}>
+          {tool.limitation}
+        </p>
+      </div>
 
-      {/* Paid tier hint small/muted if present */}
+      {/* Paid hint */}
       {tool.paidTierHint && (
-        <p className="font-figtree font-400 text-smoke text-xs mb-[--spacing-16]">
-          {tool.paidTierHint}
+        <p className="font-figtree font-normal" style={{ fontSize: '12px', color: '#8a8a80', marginBottom: '14px' }}>
+          Paid: {tool.paidTierHint}
         </p>
       )}
 
-      {/* Badge row */}
-      <div className="flex items-center gap-[--spacing-8] mb-[--spacing-16]">
-        <span className="px-4 py-2 bg-deep-forest-teal text-white rounded-[--radius-full-4] font-figtree font-600 text-xs">
+      {/* Spacer pushes badges + button to bottom */}
+      <div style={{ flex: 1 }} />
+
+      {/* Badges */}
+      <div className="flex flex-wrap items-center gap-2" style={{ marginBottom: '14px' }}>
+        <span
+          className="font-figtree font-semibold"
+          style={{
+            fontSize: '11px',
+            padding: '4px 10px',
+            borderRadius: '1000px',
+            background: '#034f46',
+            color: '#ffffff',
+          }}
+        >
           No card required
         </span>
         {tool.openSource && (
-          <span className="px-4 py-2 border border-midnight-ink text-midnight-ink rounded-[--radius-full-4] font-figtree font-600 text-xs">
+          <span
+            className="font-figtree font-medium"
+            style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              borderRadius: '1000px',
+              border: '1px solid #1a1a1a',
+              color: '#1a1a1a',
+            }}
+          >
             Open source
           </span>
         )}
       </div>
 
-      {/* Visit ghost button */}
+      {/* Visit button */}
       <a
         href={tool.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block px-4 py-2 border border-midnight-ink text-midnight-ink font-figtree font-600 text-sm rounded-[--radius-xl] hover:bg-midnight-ink hover:text-white transition-colors"
+        className="font-figtree font-semibold text-midnight-ink inline-block"
+        style={{
+          fontSize: '13px',
+          padding: '8px 16px',
+          border: '1px solid #1a1a1a',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          textAlign: 'center',
+          transition: 'background 0.15s, color 0.15s',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#1a1a1a'
+          e.currentTarget.style.color = '#ffffff'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'transparent'
+          e.currentTarget.style.color = '#1a1a1a'
+        }}
       >
-        Visit
+        Visit →
       </a>
-    </div>
+    </article>
   )
 }

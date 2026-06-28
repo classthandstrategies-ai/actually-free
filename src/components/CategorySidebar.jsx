@@ -1,64 +1,85 @@
 import { useState } from 'react'
 
 export default function CategorySidebar({ categories, active, counts, onSelect }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const activeLabel = categories.find((c) => c.slug === active)?.label || 'All'
 
-  const handleSelect = (slug) => {
-    onSelect(slug)
-    setIsOpen(false)
+  const Item = ({ cat }) => {
+    const isActive = active === cat.slug
+    return (
+      <button
+        onClick={() => { onSelect(cat.slug); setMobileOpen(false) }}
+        className="w-full text-left font-figtree font-medium"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '7px 12px',
+          fontSize: '13px',
+          borderRadius: '8px',
+          border: 'none',
+          cursor: 'pointer',
+          background: isActive ? '#1a1a1a' : 'transparent',
+          color: isActive ? '#ffffff' : '#1a1a1a',
+          transition: 'background 0.15s',
+        }}
+        onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.background = '#e4e4d0' }}
+        onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.background = 'transparent' }}
+      >
+        <span>{cat.label}</span>
+        <span style={{ fontSize: '11px', opacity: 0.55, marginLeft: '6px', flexShrink: 0 }}>
+          {counts[cat.slug] ?? 0}
+        </span>
+      </button>
+    )
   }
-
-  const activeLabel = categories.find((cat) => cat.slug === active)?.label || 'All'
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-48 gap-2">
-        {categories.map((category) => (
-          <button
-            key={category.slug}
-            onClick={() => onSelect(category.slug)}
-            className={`px-4 py-2 rounded-[--radius-full-4] font-figtree font-600 text-sm text-left transition-colors ${
-              active === category.slug
-                ? 'bg-lavender-whisper text-white'
-                : 'bg-transparent text-midnight-ink hover:bg-stone-mist'
-            }`}
-          >
-            <span className="flex justify-between items-center">
-              <span>{category.label}</span>
-              <span className="text-xs">{counts[category.slug] || 0}</span>
-            </span>
-          </button>
-        ))}
+      {/* Desktop sidebar */}
+      <aside
+        className="hidden md:block flex-shrink-0"
+        style={{ width: '200px', paddingTop: '16px' }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          {categories.map((cat) => <Item key={cat.slug} cat={cat} />)}
+        </div>
       </aside>
 
-      {/* Mobile Dropdown */}
-      <div className="md:hidden mb-4 relative w-full">
+      {/* Mobile dropdown */}
+      <div className="md:hidden" style={{ marginBottom: '16px' }}>
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-4 py-2 rounded-[--radius-full-4] bg-lavender-whisper text-white font-figtree font-600 text-sm text-left"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="w-full font-figtree font-medium text-midnight-ink bg-white"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 14px',
+            fontSize: '14px',
+            border: '1px solid #e4e4d0',
+            borderRadius: '8px',
+            cursor: 'pointer',
+          }}
         >
-          {activeLabel}
+          <span>{activeLabel} ({counts[active] ?? 0})</span>
+          <span style={{ opacity: 0.5 }}>{mobileOpen ? '▲' : '▼'}</span>
         </button>
 
-        {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-stone-mist rounded-[--radius-lg] z-10 shadow-md">
-            {categories.map((category) => (
-              <button
-                key={category.slug}
-                onClick={() => handleSelect(category.slug)}
-                className={`w-full px-4 py-2 text-left font-figtree font-600 text-sm transition-colors ${
-                  active === category.slug
-                    ? 'bg-lavender-whisper text-white'
-                    : 'text-midnight-ink hover:bg-cream-paper'
-                } ${category.slug !== categories[categories.length - 1].slug ? 'border-b border-stone-mist' : ''}`}
-              >
-                <span className="flex justify-between items-center">
-                  <span>{category.label}</span>
-                  <span className="text-xs">{counts[category.slug] || 0}</span>
-                </span>
-              </button>
-            ))}
+        {mobileOpen && (
+          <div
+            className="bg-white"
+            style={{
+              marginTop: '4px',
+              border: '1px solid #e4e4d0',
+              borderRadius: '8px',
+              padding: '6px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+              maxHeight: '320px',
+              overflowY: 'auto',
+            }}
+          >
+            {categories.map((cat) => <Item key={cat.slug} cat={cat} />)}
           </div>
         )}
       </div>

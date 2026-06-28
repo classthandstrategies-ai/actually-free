@@ -1,125 +1,75 @@
+const SAMPLE_MONOGRAMS = ['P', 'F', 'N', 'O', 'B', 'G', 'D', 'C', 'L', 'Z', 'V', 'S']
+
 export default function HowToReadSection() {
-  // Sample tool for demonstration
-  const sampleTool = {
-    name: 'Figma',
-    monogram: 'F',
-    description: 'Design and prototype tool with unlimited files',
-    limitation: 'Limited to 3 active projects',
-    paidTierHint: 'Professional: $12/month',
-    openSource: false,
-    url: '#'
-  }
-
-  // Tool monograms for the arc display
-  const toolMonograms = ['F', 'C', 'G', 'P', 'N', 'S', 'D', 'M']
-
   return (
-    <section className="w-full bg-midnight-ink text-white py-[--spacing-80]">
-      {/* Main container */}
-      <div className="max-w-[800px] mx-auto px-8 text-center">
-        {/* Headline */}
-        <h2 className="font-eb-garamond text-[--text-heading-lg] font-400 text-white mb-[--spacing-32]">
-          How to read a card
-        </h2>
-
-        {/* Subtext explaining limitation vs generosity */}
-        <p className="font-figtree font-400 text-[--text-body] text-white mb-[--spacing-56]">
-          Each card shows the <strong>limitation</strong> — the honest catch that defines the free tier — and the <strong>generosity</strong> of what you can actually do for free. No surprises. No hidden walls that appear after signup.
-        </p>
-
-        {/* Sample ToolCard with annotations */}
-        <div className="mb-[--spacing-80] bg-white rounded-[--radius-3xl] border border-stone-mist p-[--spacing-32] text-left relative">
-          {/* Annotation labels */}
-          <div className="absolute -top-12 left-[--spacing-32] text-sm font-figtree font-500 text-stone-mist">
-            Monogram + Name
-          </div>
-
-          {/* Tool monogram + name */}
-          <div className="flex items-center gap-[--spacing-16] mb-[--spacing-16]">
-            <div className="w-10 h-10 rounded-full bg-lavender-whisper flex items-center justify-center flex-shrink-0">
-              <span className="font-figtree font-600 text-charcoal text-sm">
-                {sampleTool.monogram}
-              </span>
-            </div>
-            <h3 className="font-figtree font-600 text-midnight-ink text-base leading-body">
-              {sampleTool.name}
-            </h3>
-          </div>
-
-          {/* One-line description */}
-          <div className="relative mb-[--spacing-16]">
-            <div className="absolute -left-12 top-0 text-sm font-figtree font-500 text-stone-mist">
-              Description
-            </div>
-            <p className="font-figtree font-400 text-midnight-ink text-base leading-body">
-              {sampleTool.description}
-            </p>
-          </div>
-
-          {/* Limitation — the key catch */}
-          <div className="relative mb-[--spacing-16]">
-            <div className="absolute -left-12 top-0 text-sm font-figtree font-500 text-red-500">
-              Limitation
-            </div>
-            <p className="font-figtree font-600 text-midnight-ink text-base leading-body">
-              {sampleTool.limitation}
-            </p>
-          </div>
-
-          {/* Paid tier hint if present */}
-          {sampleTool.paidTierHint && (
-            <p className="font-figtree font-400 text-smoke text-xs mb-[--spacing-16]">
-              {sampleTool.paidTierHint}
-            </p>
-          )}
-
-          {/* Badge row */}
-          <div className="relative mb-[--spacing-16]">
-            <div className="absolute -left-12 top-0 text-sm font-figtree font-500 text-stone-mist">
-              Badges
-            </div>
-            <div className="flex items-center gap-[--spacing-8]">
-              <span className="px-4 py-2 bg-deep-forest-teal text-white rounded-[--radius-full-4] font-figtree font-600 text-xs">
-                No card required
-              </span>
-              {sampleTool.openSource && (
-                <span className="px-4 py-2 border border-midnight-ink text-midnight-ink rounded-[--radius-full-4] font-figtree font-600 text-xs">
-                  Open source
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Visit button */}
-          <div className="relative">
-            <div className="absolute -left-12 top-0 text-sm font-figtree font-500 text-stone-mist">
-              CTA
-            </div>
-            <a
-              href={sampleTool.url}
-              className="inline-block px-4 py-2 border border-midnight-ink text-midnight-ink font-figtree font-600 text-sm rounded-[--radius-xl] hover:bg-midnight-ink hover:text-white transition-colors"
-            >
-              Visit
-            </a>
-          </div>
-        </div>
-
-        {/* Monogram Arc/Grid Display */}
-        <div className="mt-[--spacing-80] pt-[--spacing-56]">
-          <p className="font-figtree font-400 text-[--text-body] text-stone-mist mb-[--spacing-40]">
-            Explore tools across categories
+    <section style={{ background: '#1a1a1a', padding: '80px 0' }}>
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
+          <h2
+            className="font-eb-garamond font-normal"
+            style={{ fontSize: '48px', lineHeight: 1.05, color: '#ffffff', marginBottom: '20px', letterSpacing: '-0.02em' }}
+          >
+            How to read an entry
+          </h2>
+          <p className="font-figtree font-normal" style={{ fontSize: '16px', lineHeight: 1.6, color: '#8a8a80', marginBottom: '48px' }}>
+            Every card shows the <strong style={{ color: '#f0d7ff' }}>free-tier limit</strong> in plain sight —
+            not buried in fine print after you've signed up. The "No card required" badge means
+            exactly that.
           </p>
 
-          {/* Arc/Grid of monogram tiles */}
-          <div className="flex justify-center items-center gap-[--spacing-16] flex-wrap">
-            {toolMonograms.map((monogram, index) => (
+          {/* Annotated card mock */}
+          <div
+            style={{
+              background: '#ffffff',
+              borderRadius: '24px',
+              padding: '24px',
+              textAlign: 'left',
+              marginBottom: '64px',
+              position: 'relative',
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#f0d7ff', border: '1px solid #e4e4d0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="font-figtree font-semibold" style={{ fontSize: '14px', color: '#1a1a1a' }}>F</span>
+              </div>
+              <span className="font-figtree font-semibold" style={{ fontSize: '15px', color: '#1a1a1a' }}>Figma</span>
+              <span className="font-figtree" style={{ fontSize: '12px', color: '#8a8a80', marginLeft: 'auto', background: '#ffffeb', padding: '2px 8px', borderRadius: '4px' }}>← name</span>
+            </div>
+            <p className="font-figtree" style={{ fontSize: '13px', color: '#8a8a80', marginBottom: '14px', lineHeight: 1.5 }}>
+              Browser-based collaborative design and prototyping tool.
+              <span style={{ color: '#8a8a80', fontSize: '11px', marginLeft: '8px' }}>← description</span>
+            </p>
+            <div style={{ background: '#fffef5', border: '1px solid #e4e4d0', borderRadius: '8px', padding: '10px 12px', marginBottom: '14px' }}>
+              <p style={{ fontSize: '11px', color: '#8a8a80', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Free tier limit ← the honest catch</p>
+              <p className="font-figtree font-semibold" style={{ fontSize: '13px', color: '#1a1a1a' }}>3 files per team, unlimited viewers.</p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
+              <span className="font-figtree font-semibold" style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '1000px', background: '#034f46', color: '#fff' }}>No card required ← always shown</span>
+            </div>
+            <span className="font-figtree font-semibold" style={{ fontSize: '13px', padding: '8px 16px', border: '1px solid #1a1a1a', borderRadius: '8px' }}>Visit →</span>
+          </div>
+
+          {/* Monogram arc */}
+          <p className="font-figtree" style={{ fontSize: '14px', color: '#5f5f59', marginBottom: '24px' }}>
+            243 tools, all verified — just a few of them:
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            {SAMPLE_MONOGRAMS.map((letter, i) => (
               <div
-                key={index}
-                className="w-14 h-14 rounded-full bg-lavender-whisper flex items-center justify-center flex-shrink-0 hover:bg-amber-pulse transition-colors cursor-pointer"
+                key={i}
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '12px',
+                  background: i % 3 === 0 ? '#f0d7ff' : i % 3 === 1 ? '#e4e4d0' : '#034f4620',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                }}
               >
-                <span className="font-figtree font-600 text-charcoal text-lg">
-                  {monogram}
-                </span>
+                <span className="font-figtree font-semibold" style={{ fontSize: '15px', color: '#1a1a1a' }}>{letter}</span>
               </div>
             ))}
           </div>
