@@ -64,8 +64,8 @@ function App() {
       <Nav total={TOTAL} categories={categories} />
       <Hero total={TOTAL} />
 
-      {/* Sticky controls */}
-      <div className="sticky z-40" style={{ top: '64px' }}>
+      {/* Sticky controls — top = nav height (54px) */}
+      <div className="sticky z-40" style={{ top: '54px' }}>
         <Controls
           search={search}
           onSearchChange={setSearch}
@@ -92,7 +92,8 @@ function App() {
 
         <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
           {/* Desktop sidebar — sticky */}
-          <div className="hidden md:block" style={{ flexShrink: 0, position: 'sticky', top: '132px', alignSelf: 'flex-start' }}>
+          {/* sidebar top = nav (54) + controls (56) + gap (8) = 118px */}
+          <div className="hidden md:block" style={{ flexShrink: 0, position: 'sticky', top: '118px', alignSelf: 'flex-start' }}>
             <CategorySidebar
               categories={categories}
               active={activeCategory}
